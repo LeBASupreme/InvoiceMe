@@ -17,6 +17,9 @@ class Invoice extends Model
         'date_of_issue',
         'due_date',
         'total_amount',
+        'tva_rate',
+        'total_ht',
+        'total_tva',
     ];
 
     protected function casts(): array
@@ -25,6 +28,9 @@ class Invoice extends Model
             'date_of_issue' => 'date',
             'due_date' => 'date',
             'total_amount' => 'decimal:2',
+            'tva_rate' => 'decimal:2',
+            'total_ht' => 'decimal:2',
+            'total_tva' => 'decimal:2',
         ];
     }
 

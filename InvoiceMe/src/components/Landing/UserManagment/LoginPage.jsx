@@ -1,5 +1,3 @@
-import React from 'react'
-
 import { useEffect, useState } from 'react'
 function LoginPage() {
     const [email, setEmail] = useState('');
@@ -20,6 +18,7 @@ function LoginPage() {
             const data = await response.json();
             console.log('Response:', data);
             if (response.ok) {
+                localStorage.setItem('token', data.token);
                 console.log('Login successful:', data);
             } else {
                 setError(data.message || 'Login failed');
@@ -32,33 +31,33 @@ function LoginPage() {
         console.log('Password:', password);
     }
   return (
-        <div className="">
+        <div className="flex flex-col items-center justify-center min-h-screen text-white">
             <form onSubmit={handleSubmit} className="">
-                <h1 className="">Connexion</h1>
+                <h1 className="text-4xl font-bold mb-6">Connexion</h1>
 
-                <div className="">
-                    <label className="">Email</label>
+                <div className="mb-4">
+                    <label className="block mb-2">Email</label>
                     <input
                         type="text"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className=""
+                        className="w-full p-2 rounded text-white border border-gray-300"
                     />
                 </div>
 
-                <div className="">
-                    <label className="">Mot de passe</label>
+                <div className="mb-4">
+                    <label className="block mb-2">Mot de passe</label>
                     <input
                         type="text"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className=""
+                        className="w-full p-2 rounded text-white border border-gray-300"
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className=""
+                    className="w-full p-2 rounded "
                 >
                     Se connecter
                 </button>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -9,7 +10,7 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $clients = Client::where('organization_id', $request->user()->organization_id)
             ->orderBy('nom')
@@ -48,7 +49,7 @@ class ClientController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Request $request, string $id)
     {
         $client = Client::where('id', $id)
             ->where('organization_id', $request->user()->organization_id)
