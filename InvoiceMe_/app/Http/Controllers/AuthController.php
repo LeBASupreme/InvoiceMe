@@ -109,4 +109,53 @@ class AuthController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $validated = $request->validate([
+            'nom' => 'sometimes|string|max:255',
+            'prenom' => 'sometimes|string|max:255',
+            'email' => 'sometimes|email|unique:users,email,' . $user->id,
+            'currentPassword' => 'nullable|string',
+            'newPassword' => 'nullable|string|min:8|confirmed',
+        ]);
+
+        // Mise à jour des infos de base
+        if (isset($validated['nom'])) {
+            $user->nom = $validated['nom'];
+        }
+        if (isset($validated['prenom'])) {
+            $user->prenom = $validated['prenom'];
+        }
+        if (isset($validated['email'])) {
+            $user->email = $validated['email'];
+        }
+
+        // Changement de mot de passe
+        if (!empty($validated['newPassword'])) {
+            if (empty($validated['currentPassword'])) {
+                throw ValidationException::withMessages([
+                    'currentPassword' => ['Le mot de passe actuel est requis.'],
+                ]);
+            }
+
+            if (!Hash::check($validated['currentPassword'], $user->password)) {
+                throw ValidationException::withMessages([
+                    'currentPassword' => ['Le mot de passe actuel est incorrect.'],
+                ]);
+            }
+
+            $user->password = Hash::make($validated['newPassword']);
+        }
+
+        $user->save();
+        $user->load('organization');
+
+        return response()->json([
+            'message' => 'Profil mis à jour avec succès',
+            'user' => $user,
+        ]);
+    }
 }

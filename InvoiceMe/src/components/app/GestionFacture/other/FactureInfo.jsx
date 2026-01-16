@@ -24,16 +24,16 @@ function FactureInfo({ facture }) {
             <div className="flex items-center justify-between">
                 <div className="flex flex-col gap-1">
                     <h3 className="font-semibold text-white text-lg">
-                        {facture?.title || 'Titre de la facture'}
+                        {facture.title || 'Titre de la facture'}
                     </h3>
                     <p className="text-gray-300 text-sm">
-                        {facture?.client?.nom || 'Client non renseigné'}
+                        {facture.client.nom || 'Client non renseigné'}
                     </p>
                     <p className="text-gray-300 text-sm">
-                        Date: {facture?.date_of_issue || 'Non renseignée'}
+                        Date: {facture.date_of_issue || 'Non renseignée'}
                     </p>
                     <p className="text-gray-300 text-sm">
-                        Total: {facture?.total ? `${facture.total.toFixed(2)} €` : '0.00 €'}
+                        Total: {facture.total_amount ? `${parseFloat(facture.total_amount).toFixed(2)} €` : '0.00 €'}
                     </p>
                 </div>
 

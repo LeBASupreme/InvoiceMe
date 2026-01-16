@@ -39,7 +39,7 @@ function PageInvoice() {
             <div className="flex justify-between items-center mb-4">
                 <h1 className="text-2xl font-bold text-white">Mes Factures</h1>
                 <Link
-                    to="/dashboard/generate-invoice"
+                    to="/dashboard/generateInvoice"
                     className="w-10 h-10 border-3 border-white rounded-full flex items-center justify-center text-white transition-colors hover:border-gray-300 hover:text-gray-300"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

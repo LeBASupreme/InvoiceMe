@@ -12,7 +12,7 @@ function ClientsPage() {
 
     const fetchClients = async () => {
         try {
-            const response = await fetch('http://localhost:8000/api/clients', {
+            const response = await fetch('/api/clients', {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -24,6 +24,10 @@ function ClientsPage() {
         } finally {
             setLoading(false)
         }
+    }
+
+    const handleDeleteClient = (clientId) => {
+        setClients(clients.filter(c => c.id !== clientId))
     }
 
     if (loading) {
@@ -52,7 +56,7 @@ function ClientsPage() {
                 <p className="text-gray-400">Aucun client trouvé.</p>
             ) : (
                 clients.map((client) => (
-                    <ClientInfo key={client.id} client={client} />
+                    <ClientInfo key={client.id} client={client} onDelete={handleDeleteClient} />
                 ))
             )}
         </div>
